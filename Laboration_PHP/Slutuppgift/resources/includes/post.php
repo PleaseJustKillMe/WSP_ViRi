@@ -32,7 +32,7 @@ function slugify($slug, $strict = false) {
 
 if ($pdo) {
 
-    // Kommentar här
+    // Gör en lista med användare och deras ID i en array
     $sql = 'SELECT ID, Username FROM Users ORDER BY Username';
     $users = array();
     foreach ($pdo->query($sql) as $row) {
@@ -51,15 +51,15 @@ if ($pdo) {
     /********** genom variablerna $headline & $text. **********/
     /**********************************************************/
 
-    // Kommentar här
+    // Fungerar som ett kommando för alla variablar
     if (isset($_POST['submit'])) {
-        $user = $_POST['author']; //Kommentar här
-        $headline = $_POST['title']; //Kommentar här
+        $user = $_POST['author']; //Vem som gjorde inlägget
+        $headline = $_POST['title']; //Vad inläggets namn ska va
         $headline = trim($headline);
 
-        $slug = slugify($headline); //Kommentar här
+        $slug = slugify($headline); //Föränklar meningen och gör så att den ej ändras yttligare
 
-        $text = $_POST['message']; //Kommentar här
+        $text = $_POST['message']; //Representerar hela inlägget användaren lägger upp
 
         $sql = 'INSERT INTO Posts (User_ID, Slug, Headline, Text) VALUES ("'.$user.'", "'.$slug.'", "'.$headline.'", "'.$text.'")';
 
@@ -72,7 +72,7 @@ if ($pdo) {
         /* databasen. Tänk på att namn på tabell & kolumner i er **/
         /* databas kan skiljas något från det jag angivit i $sql. */
         /**********************************************************/
-        if(condition) {
+        if($pdo->query($sql)) {
             $message = 'Du har lyckats lägga upp ett inlägg';
         }
 
